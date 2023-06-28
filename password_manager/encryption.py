@@ -92,12 +92,10 @@ class Encryption:
         except:
             return False
 
-#
+
 # a = Encryption()
-# a.encrypt_file('Nikita_Sivko', '111111111')
-# # for i in range(5):
-#     a.encrypt_file_for_new_db('222', '222222222')
-#     a.decrypt_file('222', '222222222')
+# a.encrypt_file('111', '111111111')
+
 
 
 
