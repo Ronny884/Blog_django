@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div id="register-block">
+<h1 id="register-title" class="title">{{ title }}</h1>
+
+<form class="form-register-login" method="post">
+    {% csrf_token %}
+    {% for f in form %}
+<p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+<div class="form-error">{{ f.errors }}</div>
+{% endfor %}
+    <button class="button" type="submit">Получить код</button>
+</form>
+    </div>
+
+<div id="verification-block" style="display: none;">
+    <h1 class="title">Подтверждение аккаунта</h1>
+
+<form class="form-register-login" method="post">
+  {% csrf_token %}
+  <input id="number"  minlength="5" maxlength="5" required>
+  <button class="button" type="submit">Отправить</button>
+</form>
+</div>
+
+{% endblock %}

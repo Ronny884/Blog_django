@@ -1,0 +1,24 @@
+
+  ul.reaction {
+    list-style-type: none;
+    margin-left: 20px;
+    padding: 0;
+  }
+
+  /* Горизонтальное расположение пунктов */
+  ul.reaction li {
+    display: inline; /* Делаем пункты в строку */
+    margin-right: 20px; /* Добавляем небольшой отступ между пунктами */
+    float: left;
+  }
+
+  .like-button-pushed {
+  background-color: gray;
+  border-radius: 5px;
+  }
+
+  .like-button-not-pushed {
+  background-color: white;
+  border-color: white;
+  border-radius: 5px;
+  }

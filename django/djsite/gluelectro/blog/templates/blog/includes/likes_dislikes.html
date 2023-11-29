@@ -1,0 +1,46 @@
+<li class="like">
+
+           {% if p.pk not in posts_liked_by_user %}
+       <form action="{% url 'add_like' %}" method="post">
+       {% csrf_token %}
+       <input type="hidden" name="post_id" value="{{ p.pk }}">
+           <input type="hidden" name="content_type" value="Post">
+       <button class="like-button-not-pushed" type="submit">👍</button>
+           {% include "blog/includes/get_from_dict.html" with target=likes %}
+       </form>
+
+           {% else %}
+
+           <form action="{% url 'remove_like' %}" method="post">
+       {% csrf_token %}
+               <input type="hidden" name="post_id" value="{{ p.pk }}">
+           <input type="hidden" name="content_type" value="Post">
+       <button class="like-button-pushed" type="submit">👍</button>
+               {% include "blog/includes/get_from_dict.html" with target=likes %}
+       </form>
+           {% endif %}
+
+       </li>
+        <li class="like">
+
+            {% if p.pk not in posts_disliked_by_user %}
+       <form action="{% url 'add_dislike' %}" method="post">
+       {% csrf_token %}
+       <input type="hidden" name="post_id" value="{{ p.pk }}">
+           <input type="hidden" name="content_type" value="Post">
+       <button class="like-button-not-pushed" type="submit">👎</button>
+           {% include "blog/includes/get_from_dict.html" with target=dislikes %}
+       </form>
+
+           {% else %}
+
+           <form action="{% url 'remove_dislike' %}" method="post">
+       {% csrf_token %}
+               <input type="hidden" name="post_id" value="{{ p.pk }}">
+           <input type="hidden" name="content_type" value="Post">
+       <button class="like-button-pushed" type="submit">👎</button>
+               {% include "blog/includes/get_from_dict.html" with target=dislikes %}
+       </form>
+           {% endif %}
+
+        </li>

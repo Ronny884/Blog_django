@@ -1,0 +1,130 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<ul>
+    {% for p in page_obj %}
+    <h3>{{p.author}}</h3>
+    {{ p.publish }}
+    <h2><a href="{{ p.get_absolute_url }}">{{p.title}}</a></h2>
+
+    {% if p.photo %}
+    <p><img class="img-article-left thumb" src="{{p.photo.url}}"> </p>
+    {% endif %}
+
+    {% autoescape on %}
+    {{p.body|linebreaks|truncatewords:50}}
+    {% endautoescape %}
+
+    {% if request.user.is_authenticated %}
+    <ul class="reaction">
+        <li class="link-read-post"><a href="{{ p.get_absolute_url }}">Читать</a> </li>
+       <li class="like">
+
+           {% if p.pk not in posts_liked_by_user %}
+            <button id="like-button-{{ p.pk }}" class="like-button-not-pushed" onclick="addLike({{ p.pk }})">
+           👍
+            </button>
+           <div id="like-count-{{ p.pk }}" style="display: inline">
+               {% include "blog/includes/get_from_dict.html" with target=likes %}
+           </div>
+           {% else %}
+           <button id="like-button-{{ p.pk }}" class="like-button-pushed" onclick="addLike({{ p.pk }})">
+           👍
+           </button>
+           <div id="like-count-{{ p.pk }}" style="display: inline">
+               {% include "blog/includes/get_from_dict.html" with target=likes %}
+           </div>
+           {% endif %}
+
+       </li>
+
+        <li class="like">
+            {% if p.pk not in posts_disliked_by_user %}
+       <button id="dislike-button-{{ p.pk }}" class="like-button-not-pushed" onclick="addDislike({{ p.pk }})">
+           👎
+            </button>
+           <div id="dislike-count-{{ p.pk }}" style="display: inline">
+               {% include "blog/includes/get_from_dict.html" with target=dislikes %}
+           </div>
+
+           {% else %}
+
+           <button id="dislike-button-{{ p.pk }}" class="like-button-pushed" onclick="addDislike({{ p.pk }})">
+           👎
+           </button>
+           <div id="dislike-count-{{ p.pk }}" style="display: inline">
+               {% include "blog/includes/get_from_dict.html" with target=dislikes %}
+           </div>
+           {% endif %}
+
+        </li>
+       <li class="comment">
+           <a href="{{ p.show_comments }}">
+           💬 {% include "blog/includes/get_from_dict.html" with target=comments %}
+           </a>
+       </li>
+        <li class="like">
+            {% if p.pk in posts_noted_by_user %}
+            <button id="mark-button-{{ p.pk }}" class="like-button-pushed" onclick="addMark({{ p.pk }})">🚩</button>
+            {% else %}
+            <button id="mark-button-{{ p.pk }}" class="like-button-not-pushed" onclick="addMark({{ p.pk }})">🚩</button>
+            {% endif %}
+        </li>
+        {% if request.user.id == p.author_id %}
+        <li class="like"><a href="{% url 'edit_post' slug=p.slug %}">✏️ Редактировать</a> </li>
+        <li class="like"><a href="{% url 'del_post' slug=p.slug %}">❌ Удалить</a> </li>
+        {% endif %}
+    </ul>
+
+    {% else %}
+
+<!--------------- Пользователь не авторизован ------------------>
+
+    <ul class="reaction">
+        <li class="link-read-post"><a href="{{ p.get_absolute_url }}">Читать</a> </li>
+       <li class="like">👍 {% include "blog/includes/get_from_dict.html" with target=likes %}</li>
+        <li class="like">👎 {% include "blog/includes/get_from_dict.html" with target=dislikes %}</li>
+       <li class="comment">
+           <a href="{{ p.show_comments }}">
+           💬 {% include "blog/includes/get_from_dict.html" with target=comments %}
+           </a>
+       </li>
+    </ul>
+    {% endif %}
+
+    <p>&nbsp;</p>
+    <p>{% for tag in p.tags.all %}
+    <a href="{% url 'posts_by_tag' tag_slug=tag.slug %}">#{{ tag.name }}</a>
+    {% endfor %}</p>
+
+    <hr>
+    {% endfor %}
+</ul>
+
+
+{% if page_obj.has_other_pages %}
+<nav class="list-pages">
+    <ul class="pagination-list">
+        {% if page_obj.has_previous %}
+        <li class="page-num"><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>
+        {% endif %}
+
+        {% for p in page_obj.paginator.page_range %}
+        {% if page_obj.number == p %}
+        <li class="page-num-selected">{{ p }}</li>
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2  %}
+        <li class="page-num">
+            <a href="?page={{ p }}">{{ p }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-num"><a href="?page={{ page_obj.next_page_number }}">&gt;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% endblock %}

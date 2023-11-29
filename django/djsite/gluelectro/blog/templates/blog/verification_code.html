@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h1 class="title">Подтверждение аккаунта</h1>
+
+<form class="form-register-login" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div class="form-error">{{ error }}</div>
+  <p>&nbsp;</p>
+  <button class="button" type="submit">Отправить</button>
+</form>
+
+{% endblock %}

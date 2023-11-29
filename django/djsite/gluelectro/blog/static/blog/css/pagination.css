@@ -1,0 +1,42 @@
+
+ul.pagination-list {
+    list-style-type: none;
+    padding: 0;
+    text-align: center; /* Выравниваем содержимое по центру */
+}
+
+/* Горизонтальное расположение пунктов */
+ul.pagination-list li {
+    display: inline; /* Делаем пункты в строку */
+    margin-right: 10px; /* Добавляем небольшой отступ между пунктами */
+}
+
+/* Стили для ссылок */
+ul.pagination-list li a {
+    text-decoration: none; /* Убираем подчеркивание */
+    padding: 7px 12px; /* Добавляем немного отступов вокруг текста ссылок */
+    background-color: #787777; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    border-radius: 18px; /* Скругляем углы */
+    font-family: arial;
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+ul.pagination-list li a:hover {
+    background-color: #ababab;
+}
+
+
+  li.page-num-selected {
+  text-decoration: none; /* Убираем подчеркивание */
+    padding: 7px 12px; /* Добавляем немного отступов вокруг текста ссылок */
+    background-color: #f7f7f7; /* Цвет фона */
+    color: #787777; /* Цвет текста */
+    border-radius: 3px; /* Скругляем углы */
+    border: 1px solid #787777;
+    font-family: arial;
+    font-size: 20px;
+    font-weight: bold;
+  }

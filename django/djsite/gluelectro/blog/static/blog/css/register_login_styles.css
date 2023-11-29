@@ -1,0 +1,72 @@
+
+/* Стили для формы регистрации */
+
+ h1.title {
+  text-align: center;
+  margin-left: 20px;
+  font-family: Arial;
+  font-size: 40px;
+}
+
+/* Стилизация контейнера формы */
+form.form-register-login {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Выравниваем содержимое по центру */
+}
+
+/* Стилизация полей формы */
+form.form-register-login input[type="text"],
+form.form-register-login input[type="email"],
+form.form-register-login input[type="password"] {
+  width: 60%; /* Ширина полей ввода */
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+button.button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s; /* Добавляем анимацию перехода цвета */
+}
+
+button.button:hover {
+  background-color: #787777; /* Изменяем цвет при наведении */
+}
+
+/* Стилизация ссылки на вход (если есть) */
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Стилизация сообщений об ошибках (если есть) */
+div.form-error {
+  color: red;
+  font-size: 14px;
+}
+
+label.form-label {
+  font-size: 20px;
+  text-align: center;
+  font-family: arial;
+
+}
+
+
+
+

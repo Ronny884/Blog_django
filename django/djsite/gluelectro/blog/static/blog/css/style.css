@@ -1,0 +1,68 @@
+@import url('register_login_styles.css'); @import url('pagination.css');
+@import url('reactions.css');
+
+#for-line {
+margin-bottom: 26px;
+background-color: #F0F0F0;
+}
+
+#sidebar {
+background-color: #F0F0F0;
+}
+
+#body {
+margin: 0;
+padding: 0;
+}
+
+
+  /* Убираем маркеры у списка */
+  ul.horizontal-menu {
+    list-style-type: none;
+    margin-left: 20px;
+    padding: 0;
+    background-color: #F0F0F0;
+  }
+
+  /* Горизонтальное расположение пунктов */
+  ul.horizontal-menu li.common_actions {
+    display: inline; /* Делаем пункты в строку */
+    margin-right: 20px; /* Добавляем небольшой отступ между пунктами */
+    float: left;
+  }
+
+  ul.horizontal-menu li.user_actions {
+    display: inline; /* Делаем пункты в строку */
+    margin-right: 20px; /* Добавляем небольшой отступ между пунктами */
+    float: right;
+  }
+
+  /* Стили для ссылок */
+  ul.horizontal-menu li a {
+    text-decoration: none; /* Убираем подчеркивание */
+    padding: 10px 15px; /* Добавляем немного отступов вокруг текста ссылок */
+    background-color: #333; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    border-radius: 5px; /* Скругляем углы */
+    font-family: arial;
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.3s, background-color 0.3s;
+  }
+
+  ul.horizontal-menu li a:hover {
+  background-color: #787777;
+  }
+
+  h2.blog_name {
+  margin-left: 40px;
+  font-family: arial;
+  font-size: 40px;
+  }
+
+  #horizontal-line {
+  border-bottom: 3px solid black;
+  }
+
+
+

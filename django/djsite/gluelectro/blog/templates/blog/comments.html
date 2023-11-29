@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+  <form class="comment-form" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Отправить</button>
+  </form>
+{% endif %}
+
+<ul>
+    {% for p in object_list %}
+    <h3>{{p.author}}</h3>
+    <p>{{p.created}}</p>
+
+
+    {% autoescape on %}
+    {{p.body|linebreaks|truncatewords:50}}
+    {% endautoescape %}
+
+    {% if request.user.is_authenticated %}
+    <ul class="reaction">
+        {% if request.user.id == p.author_id %}
+        <li class="like"><a href="{% url 'edit_comment' pk=p.pk post_id=p.post_id %}">✏️ Редактировать</a> </li>
+        <li class="like"><a href="{% url 'del_comment' pk=p.pk post_id=p.post_id %}">❌ Удалить</a> </li>
+        {% endif %}
+    </ul>
+    {% endif %}
+    <p>&nbsp;</p>
+    <hr>
+    {% endfor %}
+</ul>
+
+{% endblock %}

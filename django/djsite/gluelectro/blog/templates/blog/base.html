@@ -1,0 +1,44 @@
+{% load static %}
+{% load base_tags %}
+
+<html>
+<head>
+<title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="{% static 'blog/js/like.js' %}" defer></script>
+    <script src="{% static 'blog/js/register.js' %}" defer></script>
+</head>
+<body id="body">
+
+<div id="sidebar">
+<h2 class="blog_name">ВВ - Big Blog</h2>
+<p class="non-scroll">
+    <ul class="horizontal-menu">
+    {% if request.user.is_authenticated %}
+    {% show_menu is_auth=True as menu %}
+    {% else %}
+    {% show_menu is_auth=False as menu %}
+    {% endif %}
+
+    {% for m in menu.common_actions %}
+    <li class="common_actions"><a href='{% url m.url_name %}'>{{ m.title }}</a></li>
+    {% endfor %}
+
+    {% for m in menu.user_actions %}
+    <li class="user_actions"><a href='{% url m.url_name %}'>{{ m.title }}</a></li>
+    {% endfor %}
+
+</ul>
+    <p class="non-scroll" id="for-line">&nbsp;</p>
+    <hr class="non-scroll" id="horizontal-line">
+</div>
+
+<div id="content">
+{% block content %}
+{% endblock %}
+</div>
+
+</body>
+</html>

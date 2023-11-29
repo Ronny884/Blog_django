@@ -1,0 +1,89 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p class="date">
+Published {{ post.publish }} by {{ post.author }}
+</p>
+
+{{ post.body|linebreaks }}
+{% if post.photo %}
+<p><img class="img-article-left" src="{{post.photo.url}}"></p>
+{% endif %}
+
+ {% if request.user.is_authenticated %}
+    <ul class="reaction">
+       <li class="like">
+
+           {% if not liked %}
+            <button id="like-button-{{ post.pk }}" class="like-button-not-pushed" onclick="addLike({{ post.pk }})">
+           👍
+            </button>
+           <div id="like-count-{{ post.pk }}" style="display: inline">
+               {{ likes }}
+           </div>
+           {% else %}
+           <button id="like-button-{{ post.pk }}" class="like-button-pushed" onclick="addLike({{ post.pk }})">
+           👍
+           </button>
+           <div id="like-count-{{ post.pk }}" style="display: inline">
+              {{ likes }}
+           </div>
+           {% endif %}
+
+       </li>
+
+        <li class="like">
+            {% if not disliked %}
+       <button id="dislike-button-{{ post.pk }}" class="like-button-not-pushed" onclick="addDislike({{ post.pk }})">
+           👎
+            </button>
+           <div id="dislike-count-{{ post.pk }}" style="display: inline">
+               {{ dislikes }}
+           </div>
+
+           {% else %}
+
+           <button id="dislike-button-{{ post.pk }}" class="like-button-pushed" onclick="addDislike({{ post.pk }})">
+           👎
+           </button>
+           <div id="dislike-count-{{ post.pk }}" style="display: inline">
+               {{ dislikes }}
+           </div>
+           {% endif %}
+
+        </li>
+
+       <li class="comment"><a href="{{ post.show_comments }}">💬 {{ comments }}</a> </li>
+        {% if noted %}
+            <button id="mark-button-{{ post.pk }}" class="like-button-pushed" onclick="addMark({{ post.pk }})">🚩</button>
+        {% else %}
+            <button id="mark-button-{{ post.pk }}" class="like-button-not-pushed" onclick="addMark({{ post.pk }})">🚩</button>
+        {% endif %}
+    </ul>
+{% else %}
+    <ul class="reaction">
+       <li class="like">👍 {{ likes }}</li>
+        <li class="like">👎 {{ dislikes }}</li>
+       <li class="comment"><a href="{{ post.show_comments }}">💬 {{ comments }}</a> </li>
+        <li class="like">🚩 </li>
+    </ul>
+{% endif %}
+    <p>&nbsp;
+    {% for tag in post.tags.all %}
+    <a href="{% url 'posts_by_tag' tag_slug=tag.slug %}">#{{ tag.name }}</a>
+    {% endfor %}
+    </p>
+
+<hr>
+{% if similar_posts %}
+<h2>Читайте также:</h2>
+<ul class="similar-posts">
+    {% for similar_post in similar_posts %}
+    <li><a href="{{ similar_post.get_absolute_url }}">{{ similar_post }}</a></li>
+    {% endfor %}
+    {% endif %}
+</ul>
+
+{% endblock %}
